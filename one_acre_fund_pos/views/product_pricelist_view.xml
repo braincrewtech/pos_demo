@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <record id="one_acre_fund_pos_product_pricelist_view_inherit" model="ir.ui.view">
+            <field name="name">one_acre_fund_pos.product.pricelist.form.inherit</field>
+            <field name="model">product.pricelist</field>
+            <field name="inherit_id" ref="product.product_pricelist_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='currency_id']" position="before">
+                    <field name='offer_pricelist'/>
+                </xpath>
+                <xpath expr="//group[@name='pricelist_settings']" position="after">
+                    <group>
+                    	<field name='date_start' attrs="{'required': [('offer_pricelist', '=', True)]}"/>
+                    	<field name='date_end' attrs="{'required': [('offer_pricelist', '=', True)]}"/>
+                    </group>
+                </xpath>
+                
+                <xpath expr="//field[@name='item_ids']" position="attributes">
+                    <attribute name="context">{'default_base':'list_price', 'default_date_start': date_start, 'default_date_end': date_end}</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
